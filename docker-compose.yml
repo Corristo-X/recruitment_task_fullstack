@@ -15,3 +15,4 @@ services:
     volumes:
       - ./src:/var/www/html/src
       - ./assets:/var/www/html/assets
+      - ./config:/var/www/html/config
