@@ -16,7 +16,7 @@ class NbpApiService
         $this->client = $client;
     }
 
-    public function fetchNbpRates(array $currencies, string $date): ?array
+    public function fetchNbpRates(array $currencies, string $date): array
     {
         $rates = [];
         try {
