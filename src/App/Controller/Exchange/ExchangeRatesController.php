@@ -9,8 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use App\Service\Exchange\NbpApiService;
-use App\Service\Exchange\ExchangeRateService;
+use App\Services\Exchange\NbpApiService;
+use App\Services\Exchange\ExchangeRateService;
+use App\Validator\DateValidator;
 
 class ExchangeRatesController extends AbstractController
 {
@@ -25,6 +26,10 @@ class ExchangeRatesController extends AbstractController
 
     public function index(Request $request, $date): JsonResponse
     {
+        if (!DateValidator::isValidDate($date)) {
+            return new JsonResponse(['error' => 'Invalid date format or date out of range'], 400);
+        }
+
         $currencies = ['EUR', 'USD', 'CZK', 'IDR', 'BRL'];
         $nbpRates = $this->nbpApiService->fetchNbpRates($currencies, $date);
 

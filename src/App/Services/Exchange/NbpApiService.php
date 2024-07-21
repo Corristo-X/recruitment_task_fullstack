@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Exchange;
+namespace App\Services\Exchange;
 
 use Exception;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
