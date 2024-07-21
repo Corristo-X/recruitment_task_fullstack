@@ -16,3 +16,4 @@ services:
       - ./src:/var/www/html/src
       - ./assets:/var/www/html/assets
       - ./config:/var/www/html/config
+      - ./tests:/var/www/html/tests
