@@ -1,6 +1,5 @@
 version: '3.8'
 services:
-
   webserver:
     build:
       context: .
@@ -13,3 +12,8 @@ services:
       - APACHE_RUN_USER=www-data
       - APACHE_RUN_GROUP=www-data
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    volumes:
+      - ./src:/var/www/html/src
+      - ./assets:/var/www/html/assets
+      - ./config:/var/www/html/config
+      - ./tests:/var/www/html/tests
