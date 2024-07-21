@@ -6,22 +6,27 @@ import ExchangeRateTable from "./ExchangeRateTable";
 function ExchangeRates() {
   const {date} = useParams();
   const history = useHistory();
-  const [selectedDate, setSelectedDate] = useState(date || new Date().toISOString().split('T')[0]);
+  const today = new Date().toISOString().split('T')[0];
+  const [selectedDate, setSelectedDate] = useState(date || today);
   const [exchangedData, setExchangedData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
-    setLoading(true);
-    axios.get(`/api/exchange-rates/${selectedDate}`)
-      .then(response => {
-        setExchangedData(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('API call failed:', err);
-      });
-  }, [selectedDate]);
+    if (!date) {
+      history.replace(`/exchange-rates/${today}`);
+    } else {
+      setSelectedDate(date);
+      setLoading(true);
+      axios.get(`/api/exchange-rates/${date}`)
+        .then(response => {
+          setExchangedData(response.data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('API call failed:', err);
+        });
+    }
+  }, [date, history, today]);
 
   const handleDateChange = (event) => {
     const newDate = event.target.value;
