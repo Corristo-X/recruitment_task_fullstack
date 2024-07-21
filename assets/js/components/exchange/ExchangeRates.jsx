@@ -3,10 +3,11 @@ import {useParams, useHistory} from 'react-router-dom';
 import axios from 'axios';
 import ExchangeRateTable from "./ExchangeRateTable";
 
+const today = new Date().toISOString().split('T')[0];
+
 function ExchangeRates() {
   const {date} = useParams();
   const history = useHistory();
-  const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState(date || today);
   const [exchangedData, setExchangedData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,7 @@ function ExchangeRates() {
           console.error('API call failed:', err);
         });
     }
-  }, [date, history, today]);
+  }, [date]);
 
   const handleDateChange = (event) => {
     const newDate = event.target.value;
